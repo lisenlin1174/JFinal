@@ -7,7 +7,7 @@ import com.jfinal.template.Engine;
 public class JfinalConfig extends JFinalConfig{
 
     public void configConstant(Constants constants) {
-        constants.setDevMode(true);                 //打开开发者模式
+        constants.setDevMode(true);                                           //打开开发者模式
     }
 
     public void configRoute(Routes routes) {
