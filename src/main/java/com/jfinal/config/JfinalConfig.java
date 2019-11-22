@@ -24,7 +24,7 @@ public class JfinalConfig extends JFinalConfig{
     }
 
     public void configPlugin(Plugins plugins) {                              //数据库配置
-        loadPropertyFile("myconfig.properties");     //加载配置文件 文件放在/src/main/resources下
+       /* loadPropertyFile("myconfig.properties");     //加载配置文件 文件放在/src/main/resources下
         DruidPlugin druidPlugin=new DruidPlugin(              //添加Druid数据库连接池插件，分别传入Druid可以根据jdbc url自动识别驱动类型
                 getProperty("jdbc.url"),
                 getProperty("jdbc.username","root"),   //数据库连接用户名
@@ -39,11 +39,12 @@ public class JfinalConfig extends JFinalConfig{
         activeRecordPlugin.setDevMode(getPropertyToBoolean("devMode",false));  //根据配置文件配置Activeecord插件的开发模式
         activeRecordPlugin.setShowSql(getPropertyToBoolean("showSql",false));  //根据配置文件配置Activeecord插件的开发是否输出SQL语句
 
+        */
     }
 
     public void configInterceptor(Interceptors interceptors) {
         //配置session拦截器 可以在模板中直接调用session
-        interceptors.add(new SessionInViewInterceptor());
+       // interceptors.add(new SessionInViewInterceptor());
 
     }
 

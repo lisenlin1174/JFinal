@@ -1,5 +1,8 @@
 package com.jfinal.controller;
 
+import com.jfinal.aop.Before;
+import com.jfinal.aop.FirstInterceptor;
+import com.jfinal.aop.NeedLogin;
 import com.jfinal.core.Controller;
 
 public class IndexController extends Controller {
@@ -25,19 +28,39 @@ public class IndexController extends Controller {
 
     }
 
+    @Before({FirstInterceptor.class,NeedLogin.class})
     public void login(){
-        String username=get("username");
-        String password=get("password");
-        if(username.equals("admin")&&password.equals("123")){
-            renderText("登陆成功");
-        }else{
-            renderText("登录失败");
-        }
+        renderHtml("登陆成功");
     }
 
     public void test(){
         String username=get("username");
         set("username",username);
         renderFreeMarker("test.ftl");
+    }
+
+    public void loginCheck(){
+        String username=get("username");
+        String password=get("password");
+        if(username.equals("admin")&&password.equals("123")){
+            renderHtml("登陆成功");
+            setSessionAttr("username",username);
+        }else {
+            renderHtml("登陆失败");
+        }
+    }
+
+    public void manage(){
+        String username=getSessionAttr("username");
+        if(username!=null){
+            renderHtml("已经登陆");
+        }else{
+            redirect("login.html");
+        }
+    }
+
+    public void logout(){
+        removeSessionAttr("username");
+        redirect("login.html");
     }
 }
