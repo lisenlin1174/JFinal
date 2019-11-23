@@ -44,7 +44,7 @@ public class JfinalConfig extends JFinalConfig{
 
     public void configInterceptor(Interceptors interceptors) {
         //配置session拦截器 可以在模板中直接调用session
-       // interceptors.add(new SessionInViewInterceptor());
+       //interceptors.add(new SessionInViewInterceptor());
 
     }
 

@@ -3,7 +3,10 @@ package com.jfinal.controller;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.FirstInterceptor;
 import com.jfinal.aop.NeedLogin;
+import com.jfinal.aop.RegisterValidator;
 import com.jfinal.core.Controller;
+import com.jfinal.json.Json;
+import com.jfinal.model.JsonResult;
 
 public class IndexController extends Controller {
 
@@ -62,5 +65,15 @@ public class IndexController extends Controller {
     public void logout(){
         removeSessionAttr("username");
         redirect("login.html");
+    }
+
+    @Before(RegisterValidator.class)
+    public void register(){
+        renderHtml("注册成功");
+    }
+
+    public void json(){
+        JsonResult result=new JsonResult(false,"验证码不正确");
+        renderJson(result);
     }
 }
