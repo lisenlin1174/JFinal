@@ -7,6 +7,10 @@ import com.jfinal.aop.RegisterValidator;
 import com.jfinal.core.Controller;
 import com.jfinal.json.Json;
 import com.jfinal.model.JsonResult;
+import com.jfinal.model.User;
+import org.eclipse.jetty.server.Authentication;
+
+import java.util.List;
 
 public class IndexController extends Controller {
 
@@ -45,7 +49,9 @@ public class IndexController extends Controller {
     public void loginCheck(){
         String username=get("username");
         String password=get("password");
-        if(username.equals("admin")&&password.equals("123")){
+        String sql="SELECT * FROM t_user WHERE username= ? AND password= ?";
+        List<User> users = User.dao.find(sql, username, password);
+        if(users.size()!=0){
             renderHtml("登陆成功");
             setSessionAttr("username",username);
         }else {
