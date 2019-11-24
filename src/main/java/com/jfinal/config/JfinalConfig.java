@@ -15,8 +15,11 @@ public class JfinalConfig extends JFinalConfig{
     }
 
     public void configRoute(Routes routes) {
+        //配置模板的基础路径  开头路经是从webapp开始
+        routes.setBaseViewPath("/WEB-INF/templates");
         routes.add("/", IndexController.class);                  //配置路由
         routes.add("/photo", PhotoController.class);
+
     }
 
     public void configEngine(Engine engine) {
@@ -41,7 +44,7 @@ public class JfinalConfig extends JFinalConfig{
         activeRecordPlugin.setShowSql(getPropertyToBoolean("showSql",false));  //根据配置文件配置Activeecord插件的开发是否输出SQL语句
 
         //添加数据库映射
-        activeRecordPlugin.addMapping("t_student","sno", User.class);
+        activeRecordPlugin.addMapping("t_user","username", User.class);
 
 
     }

@@ -8,6 +8,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.json.Json;
 import com.jfinal.model.JsonResult;
 import com.jfinal.model.User;
+import com.jfinal.plugin.activerecord.ActiveRecordException;
 import org.eclipse.jetty.server.Authentication;
 
 import java.util.List;
@@ -73,9 +74,33 @@ public class IndexController extends Controller {
         redirect("login.html");
     }
 
-    @Before(RegisterValidator.class)
+    //@Before(RegisterValidator.class)
     public void register(){
-        renderHtml("注册成功");
+        //renderHtml("注册成功");
+        renderFreeMarker("register.ftl");
+    }
+
+    public void doregister(){
+        String username = get("username");
+        String password = get("password");
+        String gender = get("gender");
+        String nickname = get("nickname");
+        String email=get("email");
+
+        User u=new User();
+        u.set("username",username);
+        u.set("password",password);
+        u.set("email",email);
+        u.set("nickname",nickname);
+        u.set("gender",gender);
+
+        try {
+            u.save();
+            renderHtml("注册成功");
+        } catch (ActiveRecordException e) {
+            renderHtml("注册失败");
+            e.printStackTrace();
+        }
     }
 
     public void json(){

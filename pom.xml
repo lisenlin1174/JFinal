@@ -25,7 +25,7 @@
             <version>5.1.27</version>
         </dependency>
         <dependency>
-            <groupId>org.alibaba</groupId>
+            <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.1.8</version>
         </dependency>
