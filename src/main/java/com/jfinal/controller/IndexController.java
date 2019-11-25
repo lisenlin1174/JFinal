@@ -6,6 +6,8 @@ import com.jfinal.aop.NeedLogin;
 import com.jfinal.aop.RegisterValidator;
 import com.jfinal.core.Controller;
 import com.jfinal.json.Json;
+import com.jfinal.kit.Kv;
+import com.jfinal.kit.LogKit;
 import com.jfinal.model.JsonResult;
 import com.jfinal.model.User;
 import com.jfinal.plugin.activerecord.ActiveRecordException;
@@ -80,6 +82,7 @@ public class IndexController extends Controller {
         renderFreeMarker("register.ftl");
     }
 
+    @Before(RegisterValidator.class)
     public void doregister(){
         String username = get("username");
         String password = get("password");
@@ -94,13 +97,22 @@ public class IndexController extends Controller {
         u.set("nickname",nickname);
         u.set("gender",gender);
 
+        boolean success=false;
+        String message="注册失败";
         try {
             u.save();
+            success=true;
             renderHtml("注册成功");
         } catch (ActiveRecordException e) {
-            renderHtml("注册失败");
-            e.printStackTrace();
+            /*renderHtml("注册失败");
+            e.printStackTrace();*/
+            LogKit.error("用户注册失败,原因："+e.getMessage());
         }
+
+        Kv result=Kv.create();
+        result.set("message",message);
+        result.set("success",success);
+        renderJson(result);
     }
 
     public void json(){

@@ -1,5 +1,6 @@
 package com.jfinal.model;
 
+//POJO
 public class JsonResult {
     private boolean success;
     private String message;
