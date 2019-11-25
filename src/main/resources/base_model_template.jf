@@ -1,6 +1,6 @@
 package #(baseModelPackageName);
 
-import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.model.base.BaseModel;
 import com.jfinal.plugin.activerecord.IBean;
 
 /**
@@ -11,7 +11,9 @@ import com.jfinal.plugin.activerecord.IBean;
 #else
 @SuppressWarnings("serial")
 #end
-public abstract class #(tableMeta.baseModelName)<M extends #(tableMeta.baseModelName)<M>> extends Model<M> implements IBean {
+public abstract class #(tableMeta.baseModelName)<M extends #(tableMeta.baseModelName)<M>> extends BaseModel<M> implements IBean {
+
+    public static final String tableName="#(tableMeta.name)";
 
 #set(b = generateChainSetter)
 #for(cm : tableMeta.columnMetas)
